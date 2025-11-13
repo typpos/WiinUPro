@@ -51,6 +51,7 @@ namespace NintrollerLib
             else if (reportType == InputReport.BtnsAccIRExt) // 10 bytes
                 irSensor.Parse(data, 6, true);
 
+            irSensor.Normalize();
             accelerometer.Normalize();
         }
 
