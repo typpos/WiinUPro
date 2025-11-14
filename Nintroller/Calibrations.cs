@@ -631,10 +631,10 @@
                         width = 128,
                         height = 96
                     },
-                    leftBounds = 20,
-                    rightBounds = 1003,
-                    topBounds = 15,
-                    bottomBounds = 752
+                    leftBounds = 60,
+                    rightBounds = 1023 - 60,
+                    topBounds = 42,
+                    bottomBounds = 767 - 42
                 }
             };
 
@@ -896,10 +896,10 @@
                         width = 192,
                         height = 144
                     },
-                    leftBounds = 50,
-                    rightBounds = 973,
-                    topBounds = 42,
-                    bottomBounds = 725
+                    leftBounds = 100,
+                    rightBounds = 1023 - 100,
+                    topBounds = 80,
+                    bottomBounds = 767 - 80
                 }
             };
 
@@ -1142,10 +1142,10 @@
                         width = 224,
                         height = 168
                     },
-                    leftBounds = 100,
-                    rightBounds = 923,
-                    topBounds = 75,
-                    bottomBounds = 692
+                    leftBounds = 220,
+                    rightBounds = 1023 - 220,
+                    topBounds = 120,
+                    bottomBounds = 767 - 120
                 }
             };
 

@@ -34,6 +34,8 @@
             // Pointer from IR camera
             public const string IR_X        = "wIRX";
             public const string IR_Y        = "wIRY";
+            public const string IR_X_NoDZ   = "wIRXNoDZ";
+            public const string IR_Y_NoDZ   = "wIRYNoDZ";
             public const string IR_UP       = "wIRUP";
             public const string IR_DOWN     = "wIRDOWN";
             public const string IR_LEFT     = "wIRLEFT";

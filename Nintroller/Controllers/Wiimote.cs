@@ -17,6 +17,7 @@ namespace NintrollerLib
             buttons = new CoreButtons();
             accelerometer = new Accelerometer();
             irSensor = new IR();
+            irSensor.deadArea = new Calibrations.Default().WiimoteDefault.irSensor.deadArea;
             //extension = null;
 
             Update(rawData);
@@ -29,6 +30,7 @@ namespace NintrollerLib
             buttons = new CoreButtons();
             accelerometer = new Accelerometer();
             irSensor = new IR();
+            irSensor.deadArea = new Calibrations.Default().WiimoteDefault.irSensor.deadArea;
 
             SetCalibration(calibration);
             Update(rawData);
@@ -81,6 +83,8 @@ namespace NintrollerLib
                 case INPUT_NAMES.WIIMOTE.FACE_DOWN: return accelerometer.Z < 0 ? 1 : 0;
                 case INPUT_NAMES.WIIMOTE.IR_X: return irSensor.X;
                 case INPUT_NAMES.WIIMOTE.IR_Y: return irSensor.Y;
+                case INPUT_NAMES.WIIMOTE.IR_X_NoDZ: return irSensor.X_NoDeadzone;
+                case INPUT_NAMES.WIIMOTE.IR_Y_NoDZ: return irSensor.Y_NoDeadzone;
                 case INPUT_NAMES.WIIMOTE.IR_UP: return irSensor.Y > 0 ? 1 : 0;
                 case INPUT_NAMES.WIIMOTE.IR_DOWN: return irSensor.Y < 0 ? 1 : 0;
                 case INPUT_NAMES.WIIMOTE.IR_LEFT: return irSensor.X < 0 ? 1 : 0;
@@ -387,6 +391,8 @@ namespace NintrollerLib
             irSensor.Normalize();
             yield return new KeyValuePair<string, float>(INPUT_NAMES.WIIMOTE.IR_X, irSensor.X);
             yield return new KeyValuePair<string, float>(INPUT_NAMES.WIIMOTE.IR_Y, irSensor.Y);
+            yield return new KeyValuePair<string, float>(INPUT_NAMES.WIIMOTE.IR_X_NoDZ, irSensor.X_NoDeadzone);
+            yield return new KeyValuePair<string, float>(INPUT_NAMES.WIIMOTE.IR_Y_NoDZ, irSensor.Y_NoDeadzone);
             yield return new KeyValuePair<string, float>(INPUT_NAMES.WIIMOTE.IR_UP, irSensor.Y > 0 ? irSensor.Y : 0);
             yield return new KeyValuePair<string, float>(INPUT_NAMES.WIIMOTE.IR_DOWN, irSensor.Y < 0 ? -irSensor.Y : 0); // Fixed line for IR Sensor movement.
             yield return new KeyValuePair<string, float>(INPUT_NAMES.WIIMOTE.IR_LEFT, irSensor.X < 0 ? -irSensor.X : 0);

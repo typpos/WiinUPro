@@ -224,6 +224,8 @@ namespace WiinUPro
                 case INPUT_NAMES.WIIMOTE.IR_DOWN: UpdateTooltipLine(irCanvas, tooltip, 3); break;
                 case INPUT_NAMES.WIIMOTE.IR_X: UpdateTooltipLine(irCanvas, tooltip, 4); break;
                 case INPUT_NAMES.WIIMOTE.IR_Y: UpdateTooltipLine(irCanvas, tooltip, 5); break;
+                case INPUT_NAMES.WIIMOTE.IR_X_NoDZ: UpdateTooltipLine(irCanvas, tooltip, 4); break;
+                case INPUT_NAMES.WIIMOTE.IR_Y_NoDZ: UpdateTooltipLine(irCanvas, tooltip, 5); break;
                 case INPUT_NAMES.WIIMOTE.UP: 
                     wBtnUp.ToolTip = tooltip;
                     UpdateTooltipLine(wCenterPad, tooltip, 0);
@@ -619,6 +621,8 @@ namespace WiinUPro
                 {
                     INPUT_NAMES.WIIMOTE.IR_X,
                     INPUT_NAMES.WIIMOTE.IR_Y,
+                    INPUT_NAMES.WIIMOTE.IR_X_NoDZ,
+                    INPUT_NAMES.WIIMOTE.IR_Y_NoDZ,
                     INPUT_NAMES.WIIMOTE.IR_UP,
                     INPUT_NAMES.WIIMOTE.IR_DOWN,
                     INPUT_NAMES.WIIMOTE.IR_LEFT,
@@ -632,9 +636,10 @@ namespace WiinUPro
         protected override void QuickAssignMouseAbsolute_Click(object sender, RoutedEventArgs e)
         {
             Dictionary<string, AssignmentCollection> args = new Dictionary<string, AssignmentCollection>();
-            args.Add(INPUT_NAMES.WIIMOTE.IR_X, new AssignmentCollection(new List<IAssignment> { new MouseAbsoluteAssignment(MousePosition.X) }));
-            args.Add(INPUT_NAMES.WIIMOTE.IR_Y, new AssignmentCollection(new List<IAssignment> { new MouseAbsoluteAssignment(MousePosition.Y) }));
+            args.Add(INPUT_NAMES.WIIMOTE.IR_X_NoDZ, new AssignmentCollection(new List<IAssignment> { new MouseAbsoluteAssignment(MousePosition.X) }));
+            args.Add(INPUT_NAMES.WIIMOTE.IR_Y_NoDZ, new AssignmentCollection(new List<IAssignment> { new MouseAbsoluteAssignment(MousePosition.Y) }));
             CallEvent_OnQuickAssign(args);
+            OnIRCalibrated?.Invoke(default);
         }
 
         protected override void SetIRCamMode_Click(object sender, RoutedEventArgs e)

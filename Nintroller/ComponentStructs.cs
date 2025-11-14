@@ -208,6 +208,10 @@ namespace NintrollerLib
         /// </summary>
         public float X, Y;
         /// <summary>
+        /// Normalized pointer position without deadzone consideration.
+        /// </summary>
+        public float X_NoDeadzone, Y_NoDeadzone;
+        /// <summary>
         /// Area in which normalization returns 0
         /// </summary>
         public INintrollerBounds deadArea;
@@ -328,53 +332,45 @@ namespace NintrollerLib
 
             if (midPoint.visible)
             {
-                if (deadArea == null)
+                if (midPoint.rawX < leftBounds)
                 {
-                    deadArea = new SquareBoundry()
-                    {
-                        center_x = 512,
-                        center_y = 384,
-                        width = 128,
-                        height = 96
-                    };
+                    X_NoDeadzone = 1f;
+                }
+                else if (midPoint.rawX > rightBounds)
+                {
+                    X_NoDeadzone = -1f;
+                }
+                else
+                {
+                    float size = rightBounds - leftBounds;
+                    if (size != 0)
+                        X_NoDeadzone = 1f - ((midPoint.rawX - leftBounds) / size * 2f);
                 }
 
-                if (deadArea.InBounds(midPoint.rawX, midPoint.rawY))
+                if (midPoint.rawY < topBounds)
                 {
-                    SetFallback();
+                    Y_NoDeadzone = 1f;
                 }
-                else if (deadArea is SquareBoundry square)
+                else if (midPoint.rawY > bottomBounds)
                 {
-                    if (midPoint.rawX < leftBounds)
-                    {
-                        X = 1f;
-                    }
-                    else if (midPoint.rawX > rightBounds)
-                    {
-                        X = -1f;
-                    }
-                    else
-                    {
-                        float size = rightBounds - leftBounds;
-                        if (size != 0)
-                            X = 1f - ((midPoint.rawX - leftBounds) / size * 2f);
-                    }
+                    Y_NoDeadzone = -1f;
+                }
+                else
+                {
+                    float size = bottomBounds - topBounds;
+                    if (size != 0)
+                        Y_NoDeadzone = 1f - ((midPoint.rawY - topBounds) / size * 2f);
+                }
 
-                    if (midPoint.rawY < topBounds)
-                    {
-                        Y = 1f;
-                    }
-                    else if (midPoint.rawY > bottomBounds)
-                    {
-                        Y = -1f;
-                    }
-                    else
-                    {
-                        float size = bottomBounds - topBounds;
-                        if (size != 0)
-                            Y = 1f - ((midPoint.rawY - topBounds) / size * 2f);
-                    }
-
+                if (deadArea != null && deadArea.InBounds(midPoint.rawX, midPoint.rawY))
+                {
+                    X = 0;
+                    Y = 0;
+                }
+                else //if (deadArea is SquareBoundry square)
+                {
+                    X = X_NoDeadzone;
+                    Y = Y_NoDeadzone;
                 }
             }
             else
@@ -389,6 +385,8 @@ namespace NintrollerLib
             {
                 X = 0;
                 Y = 0;
+                X_NoDeadzone = 0;
+                Y_NoDeadzone = 0;
             }
         }
 
