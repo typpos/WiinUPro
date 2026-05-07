@@ -63,6 +63,9 @@ SCP Driver and other (optional) components will be automatically presented to
 you during the installation process of either app. The portable (zip) version
 contains these components as separate folders, to be installed manually.
 
+You DO NOT need the Bluetooth Driver that is presented in the install isntructions, so uncheck it unless you need it for another purpose. <img width="273" height="41" alt="image" src="https://github.com/user-attachments/assets/dd9bd870-ad4b-480d-9ca7-7f7c93f92242" />
+
+
 # WiinUSoft
 This is for people who just want their Nintendo controllers to behave like regular Windows compatible controllers.
 With the help of some drivers (part of the installer setup) it will translate the inputs of one of your connected Nintendo Wii/U familiy controllers to an emulated XInput controller.
